@@ -4,3 +4,4 @@
     - group: root
     - mode: 644
     - source: salt://resolv/resolv.conf
+    - template: jinja

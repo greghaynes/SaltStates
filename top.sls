@@ -13,6 +13,8 @@ base:
     - pgmaster
   lxc022:
     - named
+  lxc017:
+    - mumble
   lxc023:
     - mumble
   lxc024:
