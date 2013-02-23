@@ -1,0 +1,3 @@
+gitolite:
+  pkg:
+    - installed

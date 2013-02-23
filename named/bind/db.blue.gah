@@ -1,0 +1,28 @@
+;
+; BIND data file for blue.gah
+;
+$TTL	604800
+@	IN	SOA	blue.gah. root.blue.gah. (
+			12291201	; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+@		IN	NS	ns1.blue.gah.
+gw		IN	A	10.20.0.1
+util		IN	A	10.20.2.1
+salt		IN	A	10.20.2.2
+mumble		IN	A	10.20.2.3
+webproxy	IN	A	10.20.2.4
+gh-webhead	IN	A	10.20.2.5
+ircbouncer	IN	A	10.20.2.6
+minecraft	IN	A	10.20.2.7
+ns1		IN	A	10.20.2.8
+grant.mumble	IN	A	10.20.2.9
+git		IN	A	10.20.2.10
+pgmaster	IN	A	10.20.2.11
+
+$GENERATE	1-9	lxc00$	IN	A	10.20.1.$
+$GENERATE	10-99	lxc0$	IN	A	10.20.1.$
+$GENERATE	100-255	lxc$	IN	A	10.20.1.$

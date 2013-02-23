@@ -1,0 +1,26 @@
+;
+; BIND reverse data file for blue.gah reverse
+;
+$TTL	604800
+@	IN	SOA	blue.gah. root.blue.gah. (
+			12291201	; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+@	IN	NS	blue.gah.
+1.0	IN	PTR	gw.blue.gah.
+1.2	IN	PTR	util.blue.gah.
+2.2	IN      PTR	salt.blue.gah.
+3.2	IN	PTR	mumble.blue.gah.
+4.2	IN	PTR	webproxy.blue.gah.
+5.2	IN	PTR	gh-webhead.blue.gah.
+6.2	IN	PTR	ircbouncer.blue.gah.
+7.2	IN	PTR	minecraft.blue.gah.
+8.2	IN	PTR	ns1.blue.gah.
+
+$GENERATE	1-9	$.1	IN	PTR	lxc00$.blue.gah.
+$GENERATE	10-99	$.1	IN	PTR	lxc0$.blue.gah.
+$GENERATE	100-255	$.1	IN	PTR	lxc$.blue.gah.
+
