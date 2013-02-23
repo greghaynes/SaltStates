@@ -9,3 +9,4 @@ apt-get -y update:
     - user: root
     - group: root
     - source: salt://apt/sources.list
+    - template: jinja
