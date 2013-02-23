@@ -13,6 +13,8 @@ base:
     - pgmaster
   lxc022:
     - named
+  lxc018:
+    - httpproxy
   lxc017:
     - mumble
   lxc023:
