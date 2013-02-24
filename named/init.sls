@@ -1,3 +1,6 @@
+{% set conf_files = ['bind.keys', 'named.conf', 'named.conf.default-zones', 'named.conf.local', 'named.conf.options', 'zones.rfc1918'] %}
+{% set default_zones = ['db.0', 'db.127', 'db.255', 'db.empty', 'db.local', 'db.root'] %}
+
 bind9:
   pkg:
     - installed
@@ -6,6 +9,17 @@ bind9:
     - enabled: True
 
 service bind9 reload:
+  cmd.wait:
+    - watch:
+      - file: /etc/bind/named.conf.my-zones
+{% for file in conf_files %}
+      - file: conf_{{ file }}
+{% endfor %}
+{% for file in default_zones %}
+      - file: default_zone_{{ file }}
+{% endfor %}
+
+rndc reload:
   cmd.wait:
     - watch:
 {% for zone_name in pillar['named-zones'].keys() %}
@@ -46,8 +60,8 @@ rdns_zone_{{ zone_name}}:
     - user: root
     - group: root
 
-{% for file in ['bind.keys', 'named.conf', 'named.conf.default-zones', 'named.conf.local', 'named.conf.options', 'zones.rfc1918'] %}
-conf-{{ file }}:
+{% for file in conf_files %}
+conf_{{ file }}:
   file.managed:
     - source: salt://named/{{ file }}
     - mode: 644
@@ -57,7 +71,7 @@ conf-{{ file }}:
     - makedirs: True
 {% endfor %}
 
-{% for file in ['db.0', 'db.127', 'db.255', 'db.empty', 'db.local', 'db.root'] %}
+{% for file in default_zones %}
 default_zone_{{ file }}:
   file.managed:
     - source: salt://named/default_zones/{{ file }}
