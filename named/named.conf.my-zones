@@ -1,0 +1,13 @@
+{% for zone, zone_ctxt in pillar['named-zones'].items() %}
+zone "{{ zone }}" {
+    type master;
+    file "/etc/bind/my_zones/db.{{ zone }}";
+};
+
+{% set rdns_zone = zone_ctxt['ip_prefix'].split('.')[:-1]|reverse|join('.') %}
+zone "{{ rdns_zone }}.in-addr.arpa" {
+    type master;
+    file "/etc/bind/my_zones/db.in-addr.{{ rdns_zone }}";
+};
+{% endfor %}
+

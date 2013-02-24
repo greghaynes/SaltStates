@@ -1,8 +1,11 @@
+{% set zone_ctxt = pillar['named-zones'][zone_name] %}
+{% set ip_prefix = zone_ctxt['ip_prefix'] %}
+
 ;
 ; BIND reverse data file for blue.gah reverse
 ;
 $TTL	604800
-@	IN	SOA	blue.gah. root.blue.gah. (
+@	IN	SOA	{{ zone_name }}. root.{{ zone_name }}. (
 			12291201	; Serial
 			 604800		; Refresh
 			  86400		; Retry
@@ -10,15 +13,10 @@ $TTL	604800
 			 604800 )	; Negative Cache TTL
 ;
 @	IN	NS	blue.gah.
-1.0	IN	PTR	gw.blue.gah.
-1.2	IN	PTR	util.blue.gah.
-2.2	IN      PTR	salt.blue.gah.
-3.2	IN	PTR	mumble.blue.gah.
-4.2	IN	PTR	webproxy.blue.gah.
-5.2	IN	PTR	gh-webhead.blue.gah.
-6.2	IN	PTR	ircbouncer.blue.gah.
-7.2	IN	PTR	minecraft.blue.gah.
-8.2	IN	PTR	ns1.blue.gah.
+
+{% for src, dest in zone_ctxt['a_records'].items() %}
+{{ [dest.split('.')|reverse|join('.'), ip_prefix.split('.')|reverse|join('.')]|join('') }}	IN	PTR	{{ src }}
+{% endfor %}
 
 $GENERATE	1-9	$.1	IN	PTR	lxc00$.blue.gah.
 $GENERATE	10-99	$.1	IN	PTR	lxc0$.blue.gah.
