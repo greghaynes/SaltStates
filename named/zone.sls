@@ -4,13 +4,13 @@
 ;
 ; BIND data file for {{ zone_name }}
 ;
-$TTL	604800
+$TTL	{{ zone_ctxt['ttl'] }}
 @	IN	SOA	{{ zone_name }}. root.{{ zone_name }}. (
-			12291201	; Serial
-			 604800		; Refresh
-			  86400		; Retry
-			2419200		; Expire
-			 604800 )	; Negative Cache TTL
+			{{ zone_ctxt['serial'] }}	; Serial
+			{{ zone_ctxt['refresh'] }}		; Refresh
+			{{ zone_ctxt['retry'] }}		; Retry
+			{{ zone_ctxt['expire'] }}		; Expire
+			{{ zone_ctxt['negative_ttl'] }} )	; Negative Cache TTL
 ;
 
 
