@@ -5,6 +5,7 @@ base:
     - apt
     - cacert
     - locale
+    - rsyslog
   lxc003:
     - httpsproxy
   lxc004:
