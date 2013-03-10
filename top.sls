@@ -2,10 +2,14 @@ base:
   '*':
     - resolv
     - sshd
-    - apt
     - cacert
     - locale
     - rsyslog
+    - motd
+  'os:Ubuntu':
+    - match: grain
+    - apt
+    - ubuntu-user
   lxc003:
     - httpsproxy
   lxc004:

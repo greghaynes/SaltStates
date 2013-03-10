@@ -1,0 +1,9 @@
+{%- if pillar['motd-slug'] %}
+Welcome to {{ pillar['motd-slug'] }}
+{%- endif %}
+ 
+{%- if pillar['motd-description'] %}
+{% for c in pillar['motd-description'] %}={% endfor %}
+{{ pillar['motd-description'] }}
+{% for c in pillar['motd-description'] %}={% endfor %}
+{%- endif %}
