@@ -14,6 +14,7 @@ sshd_config:
     - group: root
     - mode: 640
     - name: /etc/ssh/sshd_config
+    - template: jinja
 
 service ssh restart:
   cmd.wait:

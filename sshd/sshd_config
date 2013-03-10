@@ -1,11 +1,15 @@
+{% from 'macros.sls' import bool2yesno with context %}
 # Package generated configuration file
 # See the sshd_config(5) manpage for details
 
 # What ports, IPs and protocols we listen for
-Port 22
+Port {{ pillar['sshd-port'] }}
 # Use these options to restrict which interfaces/protocols sshd will bind to
 #ListenAddress ::
-#ListenAddress 0.0.0.0
+{% if pillar['sshd-listen-address'] %}
+ListenAddress {{ pillar['sshd-listen-address'] }}
+{% endif %}
+
 Protocol 2
 # HostKeys for protocol version 2
 HostKey /etc/ssh/ssh_host_rsa_key
@@ -24,7 +28,7 @@ LogLevel INFO
 
 # Authentication:
 LoginGraceTime 120
-PermitRootLogin yes
+PermitRootLogin {{ bool2yesno(pillar['sshd-permit-root-login']) }}
 StrictModes yes
 
 RSAAuthentication yes
@@ -48,7 +52,7 @@ PermitEmptyPasswords no
 ChallengeResponseAuthentication no
 
 # Change to no to disable tunnelled clear text passwords
-#PasswordAuthentication yes
+PasswordAuthentication {{ bool2yesno(pillar['sshd-password-authentication']) }}
 
 # Kerberos options
 #KerberosAuthentication no
